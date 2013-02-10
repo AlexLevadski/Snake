@@ -2,6 +2,8 @@ package alex.levadski.snake;
 
 import java.util.Random;
 
+import android.bluetooth.BluetoothProfile;
+import android.bluetooth.BluetoothProfile.ServiceListener;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,13 +11,14 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.os.Vibrator;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnTouchListener;
-import android.widget.Toast;
 
-public class GameSurface extends SurfaceView implements OnTouchListener{
+public class GameSurface extends SurfaceView implements OnTouchListener
+{
 
 	GameManager mField;
 	
@@ -38,7 +41,7 @@ public class GameSurface extends SurfaceView implements OnTouchListener{
 		mField = new GameManager();
 		ship = 		BitmapFactory.decodeResource(getResources(), R.drawable.shipcool);	
 		bullet = 	BitmapFactory.decodeResource(getResources(), R.drawable.bullet);	
-		enemy =  	BitmapFactory.decodeResource(getResources(), R.drawable.enemyship);	
+		enemy =  	BitmapFactory.decodeResource(getResources(), R.drawable.asteroid);	
 		pause =  	BitmapFactory.decodeResource(getResources(), R.drawable.pause);	
 		pauseRed =  BitmapFactory.decodeResource(getResources(), R.drawable.pause2);	
 		explosion =  BitmapFactory.decodeResource(getResources(), R.drawable.explosion);	
@@ -67,7 +70,7 @@ public class GameSurface extends SurfaceView implements OnTouchListener{
 		///////////////////////////////////////////////////////////////////////////»Õ»÷»¿À»«¿÷»ﬂ PAINT-¿ » ¡»“Ã¿œŒ¬
 		Paint paint = new Paint();
 		
-		Bitmap mShip = Bitmap.createScaledBitmap(ship, GameManager.screenWidth/9, GameManager.screenHeight/12, true);
+		Bitmap mShip = Bitmap.createScaledBitmap(ship,  GameManager.screenWidth/36*4, GameManager.screenHeight/48*5, true);
 		Bitmap mBullet = Bitmap.createScaledBitmap(bullet, GameManager.screenWidth/48, GameManager.screenHeight/40, true);
 		Bitmap mEnemy = Bitmap.createScaledBitmap(enemy, GameManager.screenWidth/9, GameManager.screenHeight/12, true);
 		Bitmap mPause = Bitmap.createScaledBitmap(pause, GameManager.screenWidth/6, GameManager.screenHeight/8, true);
@@ -94,7 +97,11 @@ public class GameSurface extends SurfaceView implements OnTouchListener{
 		
 		DrawBottomPanel(c, paint, mBullet); /////////Œ“–»—Œ¬ ¿ Õ»∆Õ≈… »Õƒ» ¿“Œ–ÕŒ… œ¿Õ≈À»
 		
-		ShotManager(c, paint, mBullet); ///////////Œ“–¿¡Œ“ ¿ ¬€—“–≈ÀŒ¬
+//		switch (GameManager.weapon)
+//		{ case 0:
+		{ rocketShotManager(c, paint, mBullet, mShip); }  ///////////Œ“–¿¡Œ“ ¿ ¬€—“–≈ÀŒ¬
+//		case 1: { laserShotManager(c, paint, mShip); }  ///////////Œ“–¿¡Œ“ ¿ ¬€—“–≈ÀŒ¬
+//		}
 		
 		DrawTopPanel(c, paint, mPause);//////////////Œ“–»—Œ¬ ¿ ¬≈–’Õ≈… »Õƒ» ¿“Œ–ÕŒ… œ¿Õ≈À»
 		
@@ -102,7 +109,7 @@ public class GameSurface extends SurfaceView implements OnTouchListener{
 		
 		RefreshBulletsRects();
 		
-		CollisionDetector(c, paint, mExplosion);
+		CollisionDetector(c, paint, mExplosion, mShip);
 		
 		}
 	}
@@ -139,7 +146,7 @@ public class GameSurface extends SurfaceView implements OnTouchListener{
 		if (GameManager.Xpos <= GameManager.screenWidth/24) GameManager.Xpos = GameManager.screenWidth/24;
 		if (GameManager.Xpos >= (GameManager.screenWidth - GameManager.screenWidth/4)) GameManager.Xpos = GameManager.screenWidth - GameManager.screenWidth/4;
 		if (GameManager.Ypos <= GameManager.screenHeight/32) GameManager.Ypos = GameManager.screenHeight/32;
-		if (GameManager.Ypos >= (GameManager.screenHeight - GameManager.screenHeight/7*2)) GameManager.Ypos = GameManager.screenHeight - GameManager.screenHeight/7*2;
+		if (GameManager.Ypos >= (GameManager.screenHeight - GameManager.screenHeight/48*5)) GameManager.Ypos = GameManager.screenHeight - GameManager.screenHeight/48*5;
 		
 		if (GameManager.left)  GameManager.Xpos -= GameActivity.GyroX*4;
 		if (GameManager.right) GameManager.Xpos -= GameActivity.GyroX*4;
@@ -160,6 +167,30 @@ public class GameSurface extends SurfaceView implements OnTouchListener{
 				GameManager.starMapY[i] = 0;
 				GameManager.starMapX[i] = random.nextInt(GameManager.screenWidth);
 			}
+			
+			int k = random.nextInt(5);
+			switch (k)
+			{
+			case 0 :
+				paint.setColor(Color.YELLOW);
+				break;
+			case 1 :
+				paint.setColor(Color.rgb(255, 255, 155));
+				break;
+			
+			case 2 :
+				paint.setColor(Color.rgb(255, 255, 170));
+				break;
+				
+			case 3 :
+				paint.setColor(Color.rgb(255, 255, 210));
+				break;
+				
+			case 4 :
+				paint.setColor(Color.rgb(255, 255, 240));
+				break;
+			}
+			
 			c.drawLine(GameManager.starMapX[i], GameManager.starMapY[i], GameManager.starMapX[i], GameManager.starMapY[i] + 1, paint);
 			GameManager.starMapY[i]+=GameManager.starSpeed;
 		}
@@ -205,31 +236,7 @@ public class GameSurface extends SurfaceView implements OnTouchListener{
 				GameManager.screenHeight - GameManager.screenHeight/16, paint);
 		}
 	
-	public void ShotManager(Canvas c, Paint paint, Bitmap mBullet)
-	{
-		if (GameManager.isFight)
-		{
-			if (!GameManager.isBulletOnMap && GameManager.bulletCounter > 0)
-			{
-			GameManager.isFight = false;
-			GameManager.isBulletOnMap = true;
-			GameManager.YBulletPosition = GameManager.Ypos;
-			GameManager.XBulletPosition = GameManager.Xpos + getShipRect().width()/2;
-			GameManager.bulletCounter--;
-			}
-		}
-		
-		if (GameManager.isBulletOnMap)
-		{
-			if (GameManager.YBulletPosition <= 0) GameManager.isBulletOnMap = false;
-			
-			c.drawBitmap(mBullet, GameManager.XBulletPosition, GameManager.YBulletPosition, paint);
-						
-			GameManager.BulletIndicator = GameManager.YBulletPosition;
-			
-			GameManager.YBulletPosition -= 25;
-		}
-	}
+	
 	
 	public void DrawTopPanel(Canvas c, Paint paint, Bitmap mPause)
 	{
@@ -257,12 +264,18 @@ public class GameSurface extends SurfaceView implements OnTouchListener{
 		
 		c.drawBitmap(mPause, (GameManager.screenWidth/6)*5, 0, paint);
 		
-		if (GameManager.distance % 50 == 0) GameManager.bulletCounter++;
-		if (GameManager.distance % 200 == 0) GameManager.enemySpeed++;
+		if (GameManager.distance % 50 == 0) 
+			{
+			GameManager.score += 10;
+			}
+		if (GameManager.distance % 200 == 0)
+			{
+			GameManager.enemySpeed++;
+			GameManager.bulletCounter++;
+			}
 		if (GameManager.distance % 1000 == 0) 
 			{
 			GameManager.health++;
-			GameManager.score += 100;
 			}
 		
 		
@@ -276,9 +289,9 @@ public class GameSurface extends SurfaceView implements OnTouchListener{
 		c.drawBitmap(mSpace, 0, 0, paint);
 	}
 	
-	public Rect getShipRect()
+	public Rect getShipRect(Bitmap mShip)
 	{
-		return new Rect(GameManager.Xpos, GameManager.Ypos, GameManager.Xpos + GameManager.screenWidth/5, GameManager.Ypos + GameManager.screenHeight/4);
+		return new Rect(GameManager.Xpos, GameManager.Ypos, GameManager.Xpos + mShip.getWidth(), GameManager.Ypos + mShip.getHeight());
 	}
 	
 	public void RefreshEnemyRects()
@@ -304,16 +317,19 @@ public class GameSurface extends SurfaceView implements OnTouchListener{
 											GameManager.YBulletPosition+GameManager.screenHeight/40);
 	}
 	
-	public void CollisionDetector(Canvas c, Paint paint, Bitmap mExplosion)
+	public void CollisionDetector(Canvas c, Paint paint, Bitmap mExplosion, Bitmap mShip)
 	{
 		for (int i = 0; i < GameManager.maxEnemies;i++) 
 		{
-			if (GameManager.enemyRects[i].intersect(getShipRect()))
+			if (GameManager.enemyRects[i].intersect(getShipRect(mShip)))
 			{
+				GameActivity.vibrator.vibrate(100);
+				
 				if (GameManager.health > 1) 
-					{
+				{
+					
 					GameManager.health--;
-					}
+				}
 				else 
 					{
 
@@ -341,6 +357,48 @@ public class GameSurface extends SurfaceView implements OnTouchListener{
 		
 		GameManager.enemyMapX[i] = random.nextInt(GameManager.screenWidth);
 		GameManager.enemyMapY[i] = 0;	
+	}
+	
+	public void rocketShotManager(Canvas c, Paint paint, Bitmap mBullet, Bitmap mShip)
+	{
+		if (GameManager.isFight)
+		{
+			if (!GameManager.isBulletOnMap && GameManager.bulletCounter > 0)
+			{
+			GameManager.isFight = false;
+			GameManager.isBulletOnMap = true;
+			GameManager.YBulletPosition = GameManager.Ypos;
+			GameManager.XBulletPosition = GameManager.Xpos + getShipRect(mShip).width()/2;
+			GameManager.bulletCounter--;
+			}
+		}
+		
+		if (GameManager.isBulletOnMap)
+		{
+			if (GameManager.YBulletPosition <= 0) GameManager.isBulletOnMap = false;
+			
+			c.drawBitmap(mBullet, GameManager.XBulletPosition, GameManager.YBulletPosition, paint);
+						
+			GameManager.BulletIndicator = GameManager.YBulletPosition;
+			
+			GameManager.YBulletPosition -= 25;
+		}
+	}
+	
+	public void laserShotManager(Canvas c, Paint paint, Bitmap mShip)
+	{
+		if (GameManager.isFight)
+		{
+			if (GameManager.laserCounter > 0)
+			{
+			GameManager.isFight = false;
+			
+			paint.setColor(Color.rgb(9, 255, 255));
+			c.drawLine(GameManager.Xpos + getShipRect(mShip).width()/2, GameManager.Ypos, GameManager.Xpos + getShipRect(mShip).width()/2, 0, paint);
+			
+			GameManager.laserCounter--;
+			}
+		}
 	}
 }
 

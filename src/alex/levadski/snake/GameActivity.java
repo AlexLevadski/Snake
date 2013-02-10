@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.Timer;
 
 import android.app.Activity;
+import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -21,6 +23,7 @@ public class GameActivity extends Activity implements SensorEventListener, OnTou
     Timer t;
     int width, height;
  
+    public static Vibrator vibrator;
     
     public static float GyroX = 0, GyroY = 0;
     
@@ -40,6 +43,8 @@ public class GameActivity extends Activity implements SensorEventListener, OnTou
         height = this.getWindowManager().getDefaultDisplay().getHeight();
         width = this.getWindowManager().getDefaultDisplay().getWidth();
  
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        
         mSensorManager = (SensorManager) getSystemService(Activity.SENSOR_SERVICE);
         List<Sensor> sensors = mSensorManager.getSensorList(Sensor.TYPE_ALL);
         if (sensors.size() > 0) {
@@ -100,13 +105,13 @@ public class GameActivity extends Activity implements SensorEventListener, OnTou
     	GameManager.right = false;
     	}
     
-    if (y > 6) 
+    if (y > 0) 
 	{
 	GameManager.down = true;
 	GameManager.up = false;
 	}
     
-    if (y < 6) 
+    if (y < 0) 
 	{
 	GameManager.up = true;
 	GameManager.down = false;
@@ -114,10 +119,11 @@ public class GameActivity extends Activity implements SensorEventListener, OnTou
     
 }
  
-     public void Step() {
+     public void Step() 
+    {
         
     }
-
+     
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
 		

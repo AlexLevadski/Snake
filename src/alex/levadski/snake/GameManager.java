@@ -1,6 +1,8 @@
 package alex.levadski.snake;
 
+import android.content.Context;
 import android.graphics.Rect;
+import android.os.Vibrator;
 
 public class GameManager 
 {
@@ -16,9 +18,9 @@ public class GameManager
 	public static int XBulletPosition = 0;
 	
 
-	public static int bulletCounter = 10;
+	public static int bulletCounter = 10, laserCounter = 10;
 	
-	public static int distance = 0, maxStars = 10, maxEnemies = 5, starSpeed = 15, enemySpeed = 5, enemyMinSpeed = 5;
+	public static int distance = 0, maxStars = 30, maxEnemies = 7, starSpeed = 15, enemySpeed = 5, enemyMinSpeed = 3;
 	
 	public static int[] starMapX = new int[maxStars];
 	public static int[] starMapY = new int[maxStars];
@@ -30,7 +32,8 @@ public class GameManager
 	
 	public static final int maxHealth = 10;
 	
-	public static int screenWidth = 0, screenHeight = 0, health = maxHealth, score = 0, lastScore = 0, bestScore = 0;
+	public static int screenWidth = 0, screenHeight = 0, health = maxHealth, score = 0, lastScore = 0, bestScore = 0, weapon = 0;
+	
 	
 	
 	public static Rect[] enemyRects = new Rect[maxEnemies];
@@ -46,6 +49,7 @@ public class GameManager
 		if (score > bestScore) bestScore = score;
 		score = 0;
 	}
+	
 	
 }
 

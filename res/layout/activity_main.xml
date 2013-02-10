@@ -5,23 +5,21 @@
     
     tools:context=".MainActivity" >
 
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="220dp"
-        android:layout_height="50dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:onClick="onClick"
-        android:text="New Game" />
-
-    <TextView
-        android:id="@+id/textView1"
+    <ImageView
+        android:id="@+id/Background"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button1"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="70dp"
-        android:text="The Fucking Snake"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_centerVertical="true"
+        android:src="@drawable/menubackgroundfull" />
+
+    <ImageView
+        android:id="@+id/newGame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/newgamebutton"
+        android:onClick="onClick" />
 
 </RelativeLayout>

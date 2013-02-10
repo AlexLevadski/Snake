@@ -1,14 +1,22 @@
 package alex.levadski.snake;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class SimpleSnakeActivity extends Activity {
+public class SimpleSnakeActivity extends Activity implements OnTouchListener{
 
 	Button button;
 	TextView tv;
@@ -21,6 +29,10 @@ public class SimpleSnakeActivity extends Activity {
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		ImageView button = (ImageView) findViewById(R.id.newGame);
+		
+		button.setOnTouchListener(this);
 	}
 
 	
@@ -34,10 +46,54 @@ public class SimpleSnakeActivity extends Activity {
 
 	public void onClick(View view)
 	{
+		if (view.getId() == R.id.newGame)
+		{
 		Intent i = new Intent(this, GameActivity.class);
-        GAME_MODE=0;
-        GAME_SCORE=0;
+       
         this.startActivity(i);
+		}
+	}
+
+
+	@SuppressLint("NewApi")
+	@SuppressWarnings("deprecation")
+	@Override
+	public boolean onTouch(View v, MotionEvent event) {
+		
+		switch (v.getId())
+		{
+		case R.id.newGame:
+			
+			switch (event.getAction())
+			{
+			case MotionEvent.ACTION_DOWN:
+				ImageView button = (ImageView) findViewById(R.id.newGame);
+				Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.newgamebuttonpressed);
+				@SuppressWarnings("deprecation")
+				BitmapDrawable bitmapDrawable = new BitmapDrawable(bitmap);
+
+			//	button.setBackgroundDrawable(bitmapDrawable);
+				button.setImageDrawable(bitmapDrawable);
+				break;
+			case MotionEvent.ACTION_UP:
+				ImageView button1 = (ImageView) findViewById(R.id.newGame);
+				Bitmap bitmap1 = BitmapFactory.decodeResource(getResources(), R.drawable.newgamebutton);
+				@SuppressWarnings("deprecation")
+				
+				BitmapDrawable bitmapDrawable1 = new BitmapDrawable(bitmap1);
+
+	//			button1.setBackgroundDrawable(bitmapDrawable1);
+				button1.setImageDrawable(bitmapDrawable1);
+				
+				Intent i = new Intent(this, GameActivity.class);
+			       
+		        this.startActivity(i);
+				break;
+			}
+			break;
+		}
+		
+		return true;
 	}
 
 }
