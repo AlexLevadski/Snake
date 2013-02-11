@@ -133,8 +133,7 @@ public class GameActivity extends Activity implements SensorEventListener, OnTou
 			GameManager.isFight = true;
 			break;
 		case MotionEvent.ACTION_UP:
-			GameManager.isFight = false;
-			break;
+		break;
 			
 		}
 		return true;

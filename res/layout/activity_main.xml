@@ -11,15 +11,16 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/menubackgroundfull" />
+        android:src="@drawable/menubackgroundfull2" />
 
     <ImageView
         android:id="@+id/newGame"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="2200dp"
+        
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/newgamebutton"
+        android:src="@drawable/startbutton"
         android:onClick="onClick" />
 
 </RelativeLayout>

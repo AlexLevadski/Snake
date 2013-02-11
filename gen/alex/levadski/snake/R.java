@@ -19,14 +19,19 @@ public final class R {
         public static final int laserindicator=0x7f020005;
         public static final int menubackground=0x7f020006;
         public static final int menubackgroundfull=0x7f020007;
-        public static final int newgamebutton=0x7f020008;
-        public static final int newgamebuttonpressed=0x7f020009;
-        public static final int pause=0x7f02000a;
-        public static final int pause2=0x7f02000b;
-        public static final int rocketindicator=0x7f02000c;
-        public static final int shipcool=0x7f02000d;
-        public static final int space=0x7f02000e;
-        public static final int space2=0x7f02000f;
+        public static final int menubackgroundfull2=0x7f020008;
+        public static final int newgamebutton=0x7f020009;
+        public static final int newgamebuttonpressed=0x7f02000a;
+        public static final int pause=0x7f02000b;
+        public static final int pause2=0x7f02000c;
+        public static final int rocketindicator=0x7f02000d;
+        public static final int shipcool=0x7f02000e;
+        public static final int space=0x7f02000f;
+        public static final int space2=0x7f020010;
+        public static final int spaceship=0x7f020011;
+        public static final int spaceship2=0x7f020012;
+        public static final int startbutton=0x7f020013;
+        public static final int startbuttonpressed=0x7f020014;
     }
     public static final class id {
         public static final int Background=0x7f070000;

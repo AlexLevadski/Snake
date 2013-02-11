@@ -68,7 +68,7 @@ public class SimpleSnakeActivity extends Activity implements OnTouchListener{
 			{
 			case MotionEvent.ACTION_DOWN:
 				ImageView button = (ImageView) findViewById(R.id.newGame);
-				Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.newgamebuttonpressed);
+				Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.startbuttonpressed);
 				@SuppressWarnings("deprecation")
 				BitmapDrawable bitmapDrawable = new BitmapDrawable(bitmap);
 
@@ -77,7 +77,7 @@ public class SimpleSnakeActivity extends Activity implements OnTouchListener{
 				break;
 			case MotionEvent.ACTION_UP:
 				ImageView button1 = (ImageView) findViewById(R.id.newGame);
-				Bitmap bitmap1 = BitmapFactory.decodeResource(getResources(), R.drawable.newgamebutton);
+				Bitmap bitmap1 = BitmapFactory.decodeResource(getResources(), R.drawable.startbutton);
 				@SuppressWarnings("deprecation")
 				
 				BitmapDrawable bitmapDrawable1 = new BitmapDrawable(bitmap1);

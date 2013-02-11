@@ -39,7 +39,7 @@ public class GameSurface extends SurfaceView implements OnTouchListener
 	{
 		super(context);
 		mField = new GameManager();
-		ship = 		BitmapFactory.decodeResource(getResources(), R.drawable.shipcool);	
+		ship = 		BitmapFactory.decodeResource(getResources(), R.drawable.spaceship2);	
 		bullet = 	BitmapFactory.decodeResource(getResources(), R.drawable.bullet);	
 		enemy =  	BitmapFactory.decodeResource(getResources(), R.drawable.asteroid);	
 		pause =  	BitmapFactory.decodeResource(getResources(), R.drawable.pause);	
@@ -70,7 +70,7 @@ public class GameSurface extends SurfaceView implements OnTouchListener
 		///////////////////////////////////////////////////////////////////////////»Õ»÷»¿À»«¿÷»ﬂ PAINT-¿ » ¡»“Ã¿œŒ¬
 		Paint paint = new Paint();
 		
-		Bitmap mShip = Bitmap.createScaledBitmap(ship,  GameManager.screenWidth/36*4, GameManager.screenHeight/48*5, true);
+		Bitmap mShip = Bitmap.createScaledBitmap(ship,  GameManager.screenWidth/5, GameManager.screenHeight/6, true);
 		Bitmap mBullet = Bitmap.createScaledBitmap(bullet, GameManager.screenWidth/48, GameManager.screenHeight/40, true);
 		Bitmap mEnemy = Bitmap.createScaledBitmap(enemy, GameManager.screenWidth/9, GameManager.screenHeight/12, true);
 		Bitmap mPause = Bitmap.createScaledBitmap(pause, GameManager.screenWidth/6, GameManager.screenHeight/8, true);
@@ -146,7 +146,7 @@ public class GameSurface extends SurfaceView implements OnTouchListener
 		if (GameManager.Xpos <= GameManager.screenWidth/24) GameManager.Xpos = GameManager.screenWidth/24;
 		if (GameManager.Xpos >= (GameManager.screenWidth - GameManager.screenWidth/4)) GameManager.Xpos = GameManager.screenWidth - GameManager.screenWidth/4;
 		if (GameManager.Ypos <= GameManager.screenHeight/32) GameManager.Ypos = GameManager.screenHeight/32;
-		if (GameManager.Ypos >= (GameManager.screenHeight - GameManager.screenHeight/48*5)) GameManager.Ypos = GameManager.screenHeight - GameManager.screenHeight/48*5;
+		if (GameManager.Ypos >= (GameManager.screenHeight - GameManager.screenHeight/4)) GameManager.Ypos = GameManager.screenHeight - GameManager.screenHeight/4;
 		
 		if (GameManager.left)  GameManager.Xpos -= GameActivity.GyroX*4;
 		if (GameManager.right) GameManager.Xpos -= GameActivity.GyroX*4;
@@ -227,7 +227,7 @@ public class GameSurface extends SurfaceView implements OnTouchListener
 		}
 			
 		paint.setColor(Color.GREEN);
-		c.drawRect(GameManager.screenWidth/80, GameManager.screenHeight - GameManager.screenHeight/21 - 3, GameManager.BulletIndicator, 
+		c.drawRect(GameManager.screenWidth/24, GameManager.screenHeight - GameManager.screenHeight/21 - 3, GameManager.BulletIndicator, 
 					   GameManager.screenHeight - GameManager.screenHeight/21 - 1, paint);
 		
 		paint.setColor(Color.RED);
@@ -323,7 +323,7 @@ public class GameSurface extends SurfaceView implements OnTouchListener
 		{
 			if (GameManager.enemyRects[i].intersect(getShipRect(mShip)))
 			{
-				GameActivity.vibrator.vibrate(100);
+				//GameActivity.vibrator.vibrate(100);
 				
 				if (GameManager.health > 1) 
 				{
