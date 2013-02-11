@@ -2,8 +2,6 @@ package alex.levadski.snake;
 
 import java.util.Random;
 
-import android.bluetooth.BluetoothProfile;
-import android.bluetooth.BluetoothProfile.ServiceListener;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,10 +9,10 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.os.Vibrator;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 
 public class GameSurface extends SurfaceView implements OnTouchListener
@@ -74,7 +72,7 @@ public class GameSurface extends SurfaceView implements OnTouchListener
 		Bitmap mBullet = Bitmap.createScaledBitmap(bullet, GameManager.screenWidth/48, GameManager.screenHeight/40, true);
 		Bitmap mEnemy = Bitmap.createScaledBitmap(enemy, GameManager.screenWidth/9, GameManager.screenHeight/12, true);
 		Bitmap mPause = Bitmap.createScaledBitmap(pause, GameManager.screenWidth/6, GameManager.screenHeight/8, true);
-		Bitmap mPauseBig = Bitmap.createScaledBitmap(pauseRed, GameManager.screenWidth/2, GameManager.screenHeight/2, true);
+		Bitmap mPauseBig = Bitmap.createScaledBitmap(pauseRed, GameManager.screenWidth/3, GameManager.screenHeight/3, true);
 		Bitmap mExplosion = Bitmap.createScaledBitmap(explosion, GameManager.screenWidth/9, GameManager.screenHeight/12, true);
 		
 		////////////////////////////////////////////////////////////////////////////Œ“–»—Œ¬ ¿ ‘ŒÕ¿
@@ -84,7 +82,8 @@ public class GameSurface extends SurfaceView implements OnTouchListener
 		////////////////////////////////////////////////////////////////////////////œ¿”«¿
 		if (GameManager.isPause) 
 		{
-			c.drawBitmap(mPauseBig,GameManager.screenWidth/4, GameManager.screenHeight/4, paint);
+			c.drawBitmap(mPauseBig,GameManager.screenWidth/2 - mPauseBig.getWidth()/2, GameManager.screenHeight/16, paint);
+			
 		}
 		////////////////////////////////////////////////////////////////////////////»√–¿
 		else
@@ -400,6 +399,8 @@ public class GameSurface extends SurfaceView implements OnTouchListener
 			}
 		}
 	}
+
+	
 }
 
 
