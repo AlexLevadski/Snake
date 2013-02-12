@@ -22,7 +22,7 @@ public class GameSurface extends SurfaceView implements OnTouchListener
 	
 	Random random = new Random();
 	
-	Bitmap ship, bullet, enemy, pause, pauseRed, explosion;
+	Bitmap ship, bullet, enemy, pause, pauseRed, explosion, pauseBar, pauseText, restartText, exitText;
 	
 	float x, y;
 	
@@ -37,13 +37,17 @@ public class GameSurface extends SurfaceView implements OnTouchListener
 	{
 		super(context);
 		mField = new GameManager();
-		ship = 		BitmapFactory.decodeResource(getResources(), R.drawable.spaceship2);	
+		ship = 		BitmapFactory.decodeResource(getResources(), R.drawable.spaceship);	
 		bullet = 	BitmapFactory.decodeResource(getResources(), R.drawable.bullet);	
 		enemy =  	BitmapFactory.decodeResource(getResources(), R.drawable.asteroid);	
 		pause =  	BitmapFactory.decodeResource(getResources(), R.drawable.pause);	
 		pauseRed =  BitmapFactory.decodeResource(getResources(), R.drawable.pause2);	
 		explosion =  BitmapFactory.decodeResource(getResources(), R.drawable.explosion);	
-		
+		pauseBar =  BitmapFactory.decodeResource(getResources(), R.drawable.pausebar);	
+		pauseText =  BitmapFactory.decodeResource(getResources(), R.drawable.pausetext);	
+		restartText =  BitmapFactory.decodeResource(getResources(), R.drawable.restarttext);	
+		exitText =  BitmapFactory.decodeResource(getResources(), R.drawable.exittext);	
+			
 		
 		for (int i = 0; i < GameManager.maxStars; i++)
 		{
@@ -72,8 +76,12 @@ public class GameSurface extends SurfaceView implements OnTouchListener
 		Bitmap mBullet = Bitmap.createScaledBitmap(bullet, GameManager.screenWidth/48, GameManager.screenHeight/40, true);
 		Bitmap mEnemy = Bitmap.createScaledBitmap(enemy, GameManager.screenWidth/9, GameManager.screenHeight/12, true);
 		Bitmap mPause = Bitmap.createScaledBitmap(pause, GameManager.screenWidth/6, GameManager.screenHeight/8, true);
-		Bitmap mPauseBig = Bitmap.createScaledBitmap(pauseRed, GameManager.screenWidth/3, GameManager.screenHeight/3, true);
+		Bitmap mPauseBig = Bitmap.createScaledBitmap(pauseRed, GameManager.screenWidth/4, GameManager.screenHeight/4, true);
 		Bitmap mExplosion = Bitmap.createScaledBitmap(explosion, GameManager.screenWidth/9, GameManager.screenHeight/12, true);
+		Bitmap mPauseBar = Bitmap.createScaledBitmap(pauseBar, GameManager.screenWidth - GameManager.screenWidth/12, GameManager.screenHeight - GameManager.screenHeight/16, true);
+		Bitmap mPauseText = Bitmap.createScaledBitmap(pauseText, GameManager.screenWidth - GameManager.screenWidth/6, GameManager.screenHeight/6, true);
+		Bitmap mRestartText = Bitmap.createScaledBitmap(restartText, GameManager.screenWidth - GameManager.screenWidth/6, GameManager.screenHeight/6, true);
+		Bitmap mExitText = Bitmap.createScaledBitmap(exitText, GameManager.screenWidth - GameManager.screenWidth/6, GameManager.screenHeight/6, true);
 		
 		////////////////////////////////////////////////////////////////////////////ÎÒÐÈÑÎÂÊÀ ÔÎÍÀ
 
@@ -82,7 +90,11 @@ public class GameSurface extends SurfaceView implements OnTouchListener
 		////////////////////////////////////////////////////////////////////////////ÏÀÓÇÀ
 		if (GameManager.isPause) 
 		{
-			c.drawBitmap(mPauseBig,GameManager.screenWidth/2 - mPauseBig.getWidth()/2, GameManager.screenHeight/16, paint);
+			c.drawBitmap(mPauseBar,GameManager.screenWidth/24, GameManager.screenHeight/32, paint);
+			c.drawBitmap(mPauseText,GameManager.screenWidth/2 - mPauseText.getWidth()/2, 	 GameManager.screenHeight/8, paint);
+			c.drawBitmap(mRestartText,GameManager.screenWidth/2 - mRestartText.getWidth()/2, GameManager.screenHeight/3, paint);
+			c.drawBitmap(mExitText,GameManager.screenWidth/2 - mExitText.getWidth()/2, GameManager.screenHeight/10*7, paint);
+			c.drawBitmap(mRestartText,GameManager.screenWidth/2 - mRestartText.getWidth()/2, GameManager.screenHeight/2, paint);
 			
 		}
 		////////////////////////////////////////////////////////////////////////////ÈÃÐÀ
@@ -96,11 +108,7 @@ public class GameSurface extends SurfaceView implements OnTouchListener
 		
 		DrawBottomPanel(c, paint, mBullet); /////////ÎÒÐÈÑÎÂÊÀ ÍÈÆÍÅÉ ÈÍÄÈÊÀÒÎÐÍÎÉ ÏÀÍÅËÈ
 		
-//		switch (GameManager.weapon)
-//		{ case 0:
-		{ rocketShotManager(c, paint, mBullet, mShip); }  ///////////ÎÒÐÀÁÎÒÊÀ ÂÛÑÒÐÅËÎÂ
-//		case 1: { laserShotManager(c, paint, mShip); }  ///////////ÎÒÐÀÁÎÒÊÀ ÂÛÑÒÐÅËÎÂ
-//		}
+		rocketShotManager(c, paint, mBullet, mShip);  ///////////ÎÒÐÀÁÎÒÊÀ ÂÛÑÒÐÅËÎÂ
 		
 		DrawTopPanel(c, paint, mPause);//////////////ÎÒÐÈÑÎÂÊÀ ÂÅÐÕÍÅÉ ÈÍÄÈÊÀÒÎÐÍÎÉ ÏÀÍÅËÈ
 		
@@ -126,8 +134,17 @@ public class GameSurface extends SurfaceView implements OnTouchListener
 			}
 			else if (GameManager.isPause)
 				{
-				GameManager.health = GameManager.maxHealth;
-				GameManager.isPause = !GameManager.isPause;
+				if ((event.getX() > GameManager.screenWidth/12) && (event.getX() < GameManager.screenWidth - GameManager.screenWidth/12) &&
+					(event.getY() > GameManager.screenHeight/8) && (event.getY() < GameManager.screenHeight/4))
+				{
+					GameManager.isPause = !GameManager.isPause;
+				}
+				else if ((event.getX() > GameManager.screenWidth/12) && (event.getX() < GameManager.screenWidth - GameManager.screenWidth/12) &&
+						(event.getY() > GameManager.screenHeight/3) && (event.getY() < GameManager.screenHeight/3 + GameManager.screenHeight/8))
+					{
+					GameManager.ResetAchievements();
+					GameManager.isPause = !GameManager.isPause;
+					}
 				}
 			else GameManager.isFight = true;
 			
@@ -322,7 +339,7 @@ public class GameSurface extends SurfaceView implements OnTouchListener
 		{
 			if (GameManager.enemyRects[i].intersect(getShipRect(mShip)))
 			{
-				//GameActivity.vibrator.vibrate(100);
+				//GameActivity.vibrator.vibrate(200);
 				
 				if (GameManager.health > 1) 
 				{

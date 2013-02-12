@@ -72,7 +72,6 @@ public class SimpleSnakeActivity extends Activity implements OnTouchListener{
 				@SuppressWarnings("deprecation")
 				BitmapDrawable bitmapDrawable = new BitmapDrawable(bitmap);
 
-			//	button.setBackgroundDrawable(bitmapDrawable);
 				button.setImageDrawable(bitmapDrawable);
 				break;
 			case MotionEvent.ACTION_UP:
@@ -82,7 +81,6 @@ public class SimpleSnakeActivity extends Activity implements OnTouchListener{
 				
 				BitmapDrawable bitmapDrawable1 = new BitmapDrawable(bitmap1);
 
-	//			button1.setBackgroundDrawable(bitmapDrawable1);
 				button1.setImageDrawable(bitmapDrawable1);
 				
 				Intent i = new Intent(this, GameActivity.class);
