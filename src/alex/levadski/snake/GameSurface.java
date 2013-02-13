@@ -52,7 +52,7 @@ public class GameSurface extends SurfaceView implements OnTouchListener
 
 		for (int i = 0; i < GameManager.maxEnemies; i++)
 		{
-			GameManager.enemyMapX[i] = random.nextInt(240);
+			GameManager.enemyMapX[i] = random.nextInt(215);
 			GameManager.enemyMapY[i] = random.nextInt(320);
 		}
 		
@@ -74,7 +74,7 @@ public class GameSurface extends SurfaceView implements OnTouchListener
 		Bitmap mExplosion = Bitmap.createScaledBitmap(explosion, GameManager.screenWidth/9, GameManager.screenHeight/12, true);
 		Bitmap mLaserIndicator = Bitmap.createScaledBitmap(laserIndicator, GameManager.screenWidth/9 + GameManager.screenWidth/48, GameManager.screenHeight/12 + GameManager.screenHeight/64, true);
 		Bitmap mRocketInditor = Bitmap.createScaledBitmap( rocketIndicator, GameManager.screenWidth/9 + GameManager.screenWidth/48,	GameManager.screenHeight/12 + GameManager.screenHeight/62, true);
-		Bitmap mHealth = Bitmap.createScaledBitmap(health, GameManager.screenWidth/9, GameManager.screenHeight/12, true);
+		//Bitmap mHealth = Bitmap.createScaledBitmap(health, GameManager.screenWidth/9, GameManager.screenHeight/12, true);
 		
 		////////////////////////////////////////////////////////////////////////////ÎÒÐÈÑÎÂÊÀ ÔÎÍÀ
 
@@ -95,7 +95,7 @@ public class GameSurface extends SurfaceView implements OnTouchListener
 			
 		ShipPhysics(c, mShip, paint);	////ÎÒÐÀÁÎÒÊÀ ÔÈÇÈÊÈ È ÎÒÐÈÑÎÂÊÀ ÍÀØÅÃÎ ÊÎÐÀÁËß
 		
-		DrawStarsAndEnemies(c, paint, mEnemy, mHealth); ////ÃÅÍÅÐÀÖÈß È ÎÒÐÈÑÎÂÊÀ ÊÎÐÀÁËÅÉ ÏÐÎÒÈÂÍÈÊÎÂ È ÇÂÅÇÄ
+		DrawStarsAndEnemies(c, paint, mEnemy); ////ÃÅÍÅÐÀÖÈß È ÎÒÐÈÑÎÂÊÀ ÊÎÐÀÁËÅÉ ÏÐÎÒÈÂÍÈÊÎÂ È ÇÂÅÇÄ
 		
 		DrawBottomPanel(c, paint, mBullet, mRocketInditor, mLaserIndicator); /////////ÎÒÐÈÑÎÂÊÀ ÍÈÆÍÅÉ ÈÍÄÈÊÀÒÎÐÍÎÉ ÏÀÍÅËÈ
 		
@@ -106,8 +106,6 @@ public class GameSurface extends SurfaceView implements OnTouchListener
 		RefreshEnemyRects();
 		
 		RefreshBulletsRects();
-		
-		if (GameManager.isHealthBonus) DrawHealthBonus(c, paint, mHealth);
 		
 		CollisionDetector(c, paint, mExplosion, mShip);
 		}
@@ -157,7 +155,7 @@ public class GameSurface extends SurfaceView implements OnTouchListener
 		c.drawBitmap(mShip, GameManager.Xpos,  GameManager.Ypos, paint);
 	}
 	
-	public void DrawStarsAndEnemies(Canvas c, Paint paint, Bitmap mEnemy, Bitmap mHealth)///////////////////////////////////////////////////DRAW STARS AND ENEMIES
+	public void DrawStarsAndEnemies(Canvas c, Paint paint, Bitmap mEnemy)///////////////////////////////////////////////////DRAW STARS AND ENEMIES
 	{
 		//////////////////////////////////////////////////////////////////ÇÂÅÇÄÛ
 		paint.setColor(Color.WHITE);
@@ -203,22 +201,11 @@ public class GameSurface extends SurfaceView implements OnTouchListener
 			if (GameManager.enemyMapY[i] > GameManager.screenHeight)
 			{
 				GameManager.enemyMapY[i] = 0;
-				GameManager.enemyMapX[i] = random.nextInt(GameManager.screenWidth - enemy.getWidth());
+				GameManager.enemyMapX[i] = random.nextInt(GameManager.screenWidth - mEnemy.getWidth());
 			}
 			c.drawBitmap(mEnemy,GameManager.enemyMapX[i], GameManager.enemyMapY[i], paint);
 			GameManager.enemyMapY[i]+=GameManager.enemySpeed;
 		}
-		
-		//////////////////////////////////////////////////////////////////ÁÎÍÓÑÛ
-				
-		if (GameManager.isHealthBonus)
-		{
-			c.drawBitmap(mHealth, GameManager.healthBonusMapX, GameManager.healthBonusMapY, paint);
-			GameManager.healthBonusMapY += GameManager.screenHeight/64;
-		}
-		
-		if (GameManager.healthBonusMapY > GameManager.screenHeight) GameManager.isHealthBonus = false;
-		
 	}
 	
 	public void DrawBottomPanel(Canvas c, Paint paint, Bitmap mBullet, Bitmap mRocketIndicator, Bitmap mLaserIndicator)/////DRAW BOTTOM PANEL
@@ -294,13 +281,10 @@ public class GameSurface extends SurfaceView implements OnTouchListener
 				GameManager.enemySpeed++;
 				GameManager.bulletCounter++;
 			}
-		
-		if (GameManager.distance % 500 == 0)
-		{
-			GameManager.healthBonusMapX = random.nextInt(GameManager.screenWidth);
-			GameManager.isHealthBonus = true;
-		}
-			
+		if (GameManager.distance % 1000 == 0) 
+			{
+				GameManager.health++;
+			}
 	}
 	
 	public void DrawBackground(Canvas c, Paint paint)///////////////////////////////////////////////////////////////////////DRAW BACKGROUND
@@ -430,13 +414,5 @@ public class GameSurface extends SurfaceView implements OnTouchListener
 	public Rect getLaserRect(Bitmap mShip)//////////////////////////////////////////////////////////////////////////////////GET LASER RECT
 	{
 		return new Rect(GameManager.Xpos + getShipRect(mShip).width()/2 -1,0,GameManager.Xpos + getShipRect(mShip).width()/2 + 1, GameManager.Ypos);
-	}
-
-	public void DrawHealthBonus(Canvas c, Paint paint, Bitmap mHealth)
-	{
-		c.drawBitmap(mHealth, GameManager.healthBonusMapX, GameManager.healthBonusMapY, paint);
-		GameManager.healthBonusMapY+=10;
-		
-		if (GameManager.healthBonusMapY > GameManager.screenHeight) GameManager.isHealthBonus = false;
 	}
 }

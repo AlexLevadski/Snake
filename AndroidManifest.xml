@@ -32,11 +32,13 @@
         </activity>
         <activity
             android:name="alex.levadski.snake.GameOverActivity"
-            android:label="@string/title_activity_game_over" >
+            android:label="@string/title_activity_game_over"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="alex.levadski.snake.PauseActivity"
-            android:label="@string/title_activity_pause" >
+            android:label="@string/title_activity_pause" 
+            android:screenOrientation="portrait">
         </activity>
     </application>
 
