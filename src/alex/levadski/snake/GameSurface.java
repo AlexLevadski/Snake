@@ -19,7 +19,8 @@ public class GameSurface extends SurfaceView implements OnTouchListener
 {
 	Random random = new Random();
 	
-	Bitmap ship, bullet, enemy, pause, pauseRed, explosion, pauseBar, pauseText, restartText, exitText, rocketIndicator, laserIndicator,
+	Bitmap ship, bullet, enemy, pause, pauseRed, explosion, pauseBar, pauseText, restartText, exitText, rocketIndicator,
+			laserIndicator, greenLaserIndicator,
 			health;
 	
 	float x, y, MoveDown;
@@ -42,6 +43,7 @@ public class GameSurface extends SurfaceView implements OnTouchListener
 		rocketIndicator =  BitmapFactory.decodeResource(getResources(), R.drawable.rocketindicator);	
 		laserIndicator =  BitmapFactory.decodeResource(getResources(), R.drawable.laserindicator);	
 		health =  BitmapFactory.decodeResource(getResources(), R.drawable.health);	
+		greenLaserIndicator =  BitmapFactory.decodeResource(getResources(), R.drawable.greenlaserindicator);	
 			
 		
 		for (int i = 0; i < GameManager.maxStars; i++)
@@ -52,7 +54,7 @@ public class GameSurface extends SurfaceView implements OnTouchListener
 
 		for (int i = 0; i < GameManager.maxEnemies; i++)
 		{
-			GameManager.enemyMapX[i] = random.nextInt(215);
+			GameManager.enemyMapX[i] = random.nextInt(240);
 			GameManager.enemyMapY[i] = random.nextInt(320);
 		}
 		
@@ -75,6 +77,7 @@ public class GameSurface extends SurfaceView implements OnTouchListener
 		Bitmap mLaserIndicator = Bitmap.createScaledBitmap(laserIndicator, GameManager.screenWidth/9 + GameManager.screenWidth/48, GameManager.screenHeight/12 + GameManager.screenHeight/64, true);
 		Bitmap mRocketInditor = Bitmap.createScaledBitmap( rocketIndicator, GameManager.screenWidth/9 + GameManager.screenWidth/48,	GameManager.screenHeight/12 + GameManager.screenHeight/62, true);
 		//Bitmap mHealth = Bitmap.createScaledBitmap(health, GameManager.screenWidth/9, GameManager.screenHeight/12, true);
+		Bitmap mGreenLaserIndicator = Bitmap.createScaledBitmap(greenLaserIndicator, GameManager.screenWidth/9 + GameManager.screenWidth/48, GameManager.screenHeight/12 + GameManager.screenHeight/64, true);
 		
 		////////////////////////////////////////////////////////////////////////////ÎÒÐÈÑÎÂÊÀ ÔÎÍÀ
 
@@ -97,7 +100,7 @@ public class GameSurface extends SurfaceView implements OnTouchListener
 		
 		DrawStarsAndEnemies(c, paint, mEnemy); ////ÃÅÍÅÐÀÖÈß È ÎÒÐÈÑÎÂÊÀ ÊÎÐÀÁËÅÉ ÏÐÎÒÈÂÍÈÊÎÂ È ÇÂÅÇÄ
 		
-		DrawBottomPanel(c, paint, mBullet, mRocketInditor, mLaserIndicator); /////////ÎÒÐÈÑÎÂÊÀ ÍÈÆÍÅÉ ÈÍÄÈÊÀÒÎÐÍÎÉ ÏÀÍÅËÈ
+		DrawBottomPanel(c, paint, mBullet, mRocketInditor, mLaserIndicator, mGreenLaserIndicator); /////////ÎÒÐÈÑÎÂÊÀ ÍÈÆÍÅÉ ÈÍÄÈÊÀÒÎÐÍÎÉ ÏÀÍÅËÈ
 		
 		ShotManager(c, paint, mBullet, mShip, mExplosion);  ///////////ÎÒÐÀÁÎÒÊÀ ÂÛÑÒÐÅËÎÂ
 		
@@ -131,10 +134,10 @@ public class GameSurface extends SurfaceView implements OnTouchListener
 			GameManager.isFight = false;
 			
 			if (event.getX() + GameManager.screenWidth/2 < MoveDown)
-				GameManager.ChangeWeapon(1);
+				GameManager.ChangeWeapon(2);
 			
 			if (event.getX() - GameManager.screenWidth/2 > MoveDown)
-				GameManager.ChangeWeapon(-1);
+				GameManager.ChangeWeapon(1);
 			break;
 		}
 		return true;
@@ -208,7 +211,8 @@ public class GameSurface extends SurfaceView implements OnTouchListener
 		}
 	}
 	
-	public void DrawBottomPanel(Canvas c, Paint paint, Bitmap mBullet, Bitmap mRocketIndicator, Bitmap mLaserIndicator)/////DRAW BOTTOM PANEL
+	public void DrawBottomPanel(Canvas c, Paint paint, Bitmap mBullet, 
+										  Bitmap mRocketIndicator, Bitmap mLaserIndicator, Bitmap mGreenLaserIndicator)/////DRAW BOTTOM PANEL
 	{
 		paint.setColor(Color.rgb(45, 57, 0));
 		
@@ -242,8 +246,13 @@ public class GameSurface extends SurfaceView implements OnTouchListener
 		}
 		else if (GameManager.weapon == 1)
 		{
-			c.drawBitmap(mLaserIndicator, GameManager.screenWidth/24 , GameManager.screenHeight - 50, paint);}
+			c.drawBitmap(mLaserIndicator, GameManager.screenWidth/24 , GameManager.screenHeight - 50, paint);
 		}
+/*		else if (GameManager.weapon == 2)
+		{
+			c.drawBitmap(mGreenLaserIndicator, GameManager.screenWidth/24 , GameManager.screenHeight - 50, paint);	
+		}
+*/		}
 	
 	public void DrawTopPanel(Canvas c, Paint paint, Bitmap mPause)//////////////////////////////////////////////////////////DRAW TOP PANEL
 	{
@@ -409,7 +418,15 @@ public class GameSurface extends SurfaceView implements OnTouchListener
 						c.drawLine(GameManager.Xpos + getShipRect(mShip).width()/2, GameManager.Ypos, GameManager.Xpos + getShipRect(mShip).width()/2, 0, paint);
 					}
 			}
-	}
+/*	else if (GameManager.weapon == 2)
+		{
+			if (GameManager.isFight)
+			{
+				paint.setColor(Color.GREEN);
+				c.drawLine(GameManager.Xpos + getShipRect(mShip).width()/2, GameManager.Ypos, GameManager.Xpos + getShipRect(mShip).width()/2, 0, paint);
+			}
+		}
+*/	}
 	
 	public Rect getLaserRect(Bitmap mShip)//////////////////////////////////////////////////////////////////////////////////GET LASER RECT
 	{

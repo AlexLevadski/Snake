@@ -55,10 +55,17 @@ public class GameManager
 	
 	public static void ChangeWeapon(int direction)
 	{
-		if (direction == 1 && weapon < maxWeapon)
-			weapon++;
-		
-		else if (weapon > 0) weapon--;
+		if (direction == 1)
+			{
+				if (weapon < maxWeapon) 
+					weapon++;
+				else
+					weapon = 0;
+			}	
+		else if (direction == 2)
+			if (weapon > 0) weapon--;
+			else weapon = maxWeapon;
+	
 	}
 }
 
