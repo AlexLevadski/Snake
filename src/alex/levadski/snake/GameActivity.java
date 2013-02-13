@@ -5,6 +5,7 @@ import java.util.Timer;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -15,7 +16,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 public class GameActivity extends Activity implements SensorEventListener, OnTouchListener {
 	 
@@ -138,5 +138,6 @@ public class GameActivity extends Activity implements SensorEventListener, OnTou
 		}
 		return true;
 	}
+	
 	
 }

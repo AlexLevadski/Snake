@@ -16,7 +16,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class SimpleSnakeActivity extends Activity implements OnTouchListener{
+public class StartMenuActivity extends Activity implements OnTouchListener{
 
 	Button button;
 	TextView tv;

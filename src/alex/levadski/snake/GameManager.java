@@ -9,7 +9,7 @@ public class GameManager
 	public static int Xpos = 120, Ypos = 135;
 	public static boolean left = false, right = false, up = false, down = false;
 	
-	public static boolean isFight = false, isBulletOnMap = false, isPause = false;
+	public static boolean isFight = false, isBulletOnMap = false, isPause = false, isHealthBonus = false;
 	
 	public static int XMapSize = 12;
 	public static int YMapSize = 16;
@@ -28,11 +28,14 @@ public class GameManager
 	public static int[] enemyMapX = new int[maxEnemies];
 	public static int[] enemyMapY = new int[maxEnemies];
 	
+	public static int healthBonusMapX = 0;
+	public static int healthBonusMapY = 0;
+	
 	public static int BulletIndicator = 0;
 	
 	public static final int maxHealth = 10;
 	
-	public static int screenWidth = 0, screenHeight = 0, health = maxHealth, score = 0, lastScore = 0, bestScore = 0, weapon = 0;
+	public static int screenWidth = 0, screenHeight = 0, health = maxHealth, score = 0, lastScore = 0, bestScore = 0, weapon = 0, maxWeapon = 1;
 	
 	
 	
@@ -50,7 +53,13 @@ public class GameManager
 		score = 0;
 	}
 	
-	
+	public static void ChangeWeapon(int direction)
+	{
+		if (direction == 1 && weapon < maxWeapon)
+			weapon++;
+		
+		else if (weapon > 0) weapon--;
+	}
 }
 
 

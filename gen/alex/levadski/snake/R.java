@@ -16,47 +16,65 @@ public final class R {
         public static final int enemyship=0x7f020002;
         public static final int exittext=0x7f020003;
         public static final int explosion=0x7f020004;
-        public static final int ic_launcher=0x7f020005;
-        public static final int laserindicator=0x7f020006;
-        public static final int menubackground=0x7f020007;
-        public static final int menubackgroundfull=0x7f020008;
-        public static final int menubackgroundfull2=0x7f020009;
-        public static final int newgamebutton=0x7f02000a;
-        public static final int newgamebuttonpressed=0x7f02000b;
-        public static final int pause=0x7f02000c;
-        public static final int pause2=0x7f02000d;
-        public static final int pausebar=0x7f02000e;
-        public static final int pausetext=0x7f02000f;
-        public static final int restarttext=0x7f020010;
-        public static final int rocketindicator=0x7f020011;
-        public static final int shipcool=0x7f020012;
-        public static final int space=0x7f020013;
-        public static final int space2=0x7f020014;
-        public static final int spaceship=0x7f020015;
-        public static final int spaceship2=0x7f020016;
-        public static final int startbutton=0x7f020017;
-        public static final int startbuttonpressed=0x7f020018;
-        public static final int touchrequest=0x7f020019;
-        public static final int touchrequestlong=0x7f02001a;
+        public static final int gameovertext=0x7f020005;
+        public static final int health=0x7f020006;
+        public static final int ic_launcher=0x7f020007;
+        public static final int laserindicator=0x7f020008;
+        public static final int menubackground=0x7f020009;
+        public static final int menubackgroundfull=0x7f02000a;
+        public static final int menubackgroundfull2=0x7f02000b;
+        public static final int newgamebutton=0x7f02000c;
+        public static final int newgamebuttonpressed=0x7f02000d;
+        public static final int pause=0x7f02000e;
+        public static final int pause2=0x7f02000f;
+        public static final int pausebar=0x7f020010;
+        public static final int pausetitle=0x7f020011;
+        public static final int restarttext=0x7f020012;
+        public static final int resumetext=0x7f020013;
+        public static final int rocketindicator=0x7f020014;
+        public static final int shipcool=0x7f020015;
+        public static final int space=0x7f020016;
+        public static final int space2=0x7f020017;
+        public static final int spaceship=0x7f020018;
+        public static final int spaceship2=0x7f020019;
+        public static final int startbutton=0x7f02001a;
+        public static final int startbuttonpressed=0x7f02001b;
+        public static final int touchrequest=0x7f02001c;
+        public static final int touchrequestlong=0x7f02001d;
     }
     public static final class id {
-        public static final int Background=0x7f070000;
-        public static final int menu_settings=0x7f070002;
-        public static final int newGame=0x7f070001;
+        public static final int Background=0x7f070006;
+        public static final int bar=0x7f070000;
+        public static final int distance=0x7f070003;
+        public static final int exit=0x7f070002;
+        public static final int gameOver=0x7f070001;
+        public static final int imageView1=0x7f070008;
+        public static final int imageView5=0x7f070009;
+        public static final int menu_settings=0x7f07000b;
+        public static final int newGame=0x7f070007;
+        public static final int restart=0x7f070005;
+        public static final int resume=0x7f07000a;
+        public static final int scoreText=0x7f070004;
     }
     public static final class layout {
         public static final int activity_game=0x7f030000;
-        public static final int activity_main=0x7f030001;
+        public static final int activity_game_over=0x7f030001;
+        public static final int activity_main=0x7f030002;
+        public static final int activity_pause=0x7f030003;
     }
     public static final class menu {
         public static final int activity_game=0x7f060000;
-        public static final int activity_main=0x7f060001;
+        public static final int activity_game_over=0x7f060001;
+        public static final int activity_main=0x7f060002;
+        public static final int activity_pause=0x7f060003;
     }
     public static final class string {
         public static final int app_name=0x7f040000;
         public static final int hello_world=0x7f040001;
         public static final int menu_settings=0x7f040002;
         public static final int title_activity_game=0x7f040003;
+        public static final int title_activity_game_over=0x7f040004;
+        public static final int title_activity_pause=0x7f040005;
     }
     public static final class style {
         /** 

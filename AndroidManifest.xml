@@ -3,8 +3,9 @@
     package="alex.levadski.snake"
     android:versionCode="1"
     android:versionName="1.0" >
-    
-<uses-permission android:name="android.permission.VIBRATE"/>
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="16" />
@@ -15,10 +16,9 @@
         android:label="@string/app_name"
         android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
         <activity
-        android:screenOrientation="portrait"
-            android:name="alex.levadski.snake.SimpleSnakeActivity"
-            android:label="@string/app_name" 
-            >
+            android:name="alex.levadski.snake.StartMenuActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,8 +27,16 @@
         </activity>
         <activity
             android:name="alex.levadski.snake.GameActivity"
-            android:label="@string/title_activity_game" 
-        android:screenOrientation="portrait">
+            android:label="@string/title_activity_game"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="alex.levadski.snake.GameOverActivity"
+            android:label="@string/title_activity_game_over" >
+        </activity>
+        <activity
+            android:name="alex.levadski.snake.PauseActivity"
+            android:label="@string/title_activity_pause" >
         </activity>
     </application>
 
