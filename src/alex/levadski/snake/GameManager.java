@@ -1,15 +1,12 @@
 package alex.levadski.snake;
-
-import android.content.Context;
 import android.graphics.Rect;
-import android.os.Vibrator;
 
 public class GameManager 
 {
 	public static int Xpos = 120, Ypos = 135;
-	public static boolean left = false, right = false, up = false, down = false;
+	public static boolean left = false, right = false, up = false, down = false, touchDown = false;
 	
-	public static boolean isFight = false, isBulletOnMap = false, isPause = false, isHealthBonus = false;
+	public static boolean isFight = false, isBulletOnMap = false, isPause = false, isHealthBonus = false, isShield = false;
 	
 	public static int XMapSize = 12;
 	public static int YMapSize = 16;
@@ -18,7 +15,7 @@ public class GameManager
 	public static int XBulletPosition = 0;
 	
 
-	public static int bulletCounter = 10, laserCounter = 10;
+	public static int bulletCounter = 10, laserCounter = 10, touchDownCounter = 0;
 	
 	public static int distance = 0, maxStars = 30, maxEnemies = 7, starSpeed = 15, enemySpeed = 5, enemyMinSpeed = 3;
 	
@@ -28,8 +25,6 @@ public class GameManager
 	public static int[] enemyMapX = new int[maxEnemies];
 	public static int[] enemyMapY = new int[maxEnemies];
 	
-	public static int healthBonusMapX = 0;
-	public static int healthBonusMapY = 0;
 	
 	public static int BulletIndicator = 0;
 	
@@ -37,7 +32,7 @@ public class GameManager
 	
 	public static int screenWidth = 0, screenHeight = 0, health = maxHealth, score = 0, lastScore = 0, bestScore = 0, weapon = 0, maxWeapon = 1;
 	
-	
+	public static float SwipeDistance = screenWidth/2;
 	
 	public static Rect[] enemyRects = new Rect[maxEnemies];
 	
@@ -67,6 +62,15 @@ public class GameManager
 			else weapon = maxWeapon;
 	
 	}
+	///////////////////////////////////////////////////////////////////////////////////¡ŒÕ”—€
+	
+	public static boolean bonusTime = false;
+	
+	public static int healthBonusMapX = 0;
+	public static int healthBonusMapY = 0;
+	
+	///////////////////////////////////////////////////////////////////////////////////Œ“–»—Œ¬ ¿ œ¿–¿¡ŒÀ€
+	public static int[] parabolicX = new int[11];
 }
 
 

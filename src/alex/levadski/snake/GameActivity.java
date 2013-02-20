@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
 import android.view.WindowManager;
 
@@ -138,6 +139,4 @@ public class GameActivity extends Activity implements SensorEventListener, OnTou
 		}
 		return true;
 	}
-	
-	
 }

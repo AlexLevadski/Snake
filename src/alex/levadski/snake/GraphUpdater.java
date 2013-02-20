@@ -20,7 +20,7 @@ public class GraphUpdater extends TimerTask {
 		Canvas c = surf.getHolder().lockCanvas();
 		if (c!=null)
 		{
-			//c.drawColor(Color.BLACK);
+			//c.drawColor(Color.WHITE);
 			surf.drawGame(c);
 			surf.getHolder().unlockCanvasAndPost(c);
 		}
